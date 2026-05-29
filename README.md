@@ -1,4 +1,4 @@
-# MTKang Plugin - MT 管理器 V3 AI 智能编程助手
+# MTKang Plugin - MT Manager V3 AI Intelligent Programming Assistant
 
 <div align="center">
 
@@ -7,344 +7,344 @@
 [![Min SDK](https://img.shields.io/badge/Min%20SDK-21-orange.svg)](https://developer.android.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**一款基于 AI 的智能编程助手插件，为 MT 管理器文本编辑器提供代码智能分析、编码转换、开发辅助等全方位功能**
+**An intelligent programming assistant plugin based on AI, providing comprehensive features including intelligent code analysis, encoding conversion, and development assistance for MT Manager text editor**
 
-[核心功能](#-核心功能) • [快速开始](#-快速开始) • [使用说明](#-使用说明) • [技术架构](#-技术架构) • [常见问题](#-常见问题)
+[Core Features](#-core-features) • [Quick Start](#-quick-start) • [Usage Guide](#-usage-guide) • [Technical Architecture](#-technical-architecture) • [FAQ](#-faq)
 
 </div>
 
 ---
 
-## ☕ 赞助支持
+## ☕ Sponsorship Support
 
 <div align="center">
 
-**如果这个项目对您有帮助，欢迎赞助支持开发者持续维护和更新！**
+**If this project is helpful to you, we welcome your sponsorship to support continuous maintenance and updates!**
 
 </div>
 
-> 💡 **关于赞助**：本开源插件及配套免费 AI 模型，因服务器、算力、运维成本持续增加，个人已难以长期承担。为避免服务中断、保证后续更新与稳定运行，现开启自愿赞助通道。
-> 
-> 所有赞助将全部用于服务器续费、算力开销与项目维护。感谢各位用户长期支持，也希望能和大家一起，让开源与免费 AI 服务走得更久。
+> 💡 **About Sponsorship**: This open-source plugin and accompanying free AI model face increasing server, computing power, and operational costs that individuals can no longer sustain long-term. To prevent service interruption and ensure future updates and maintenance, we're seeking community sponsorship support.
+>
+> All sponsorship funds will be used for server renewals, computing costs, and project maintenance. Thank you for your long-term support; together we can keep open-source and free AI services going strong.
 
 <div align="center">
 
-### 💝 特别感谢
+### 💝 Special Thanks
 
-| 赞助人 | 金额 |
-|--------|------|
-| **尤呈** | ¥100 |
+| Sponsor | Amount |
+|---------|--------|
+| **You Cheng** | ¥100 |
 
-### 📱 赞助方式
+### 📱 Sponsorship Methods
 
-| 微信支付 | 支付宝 |
+| WeChat Pay | Alipay |
 |:--------:|:------:|
-| ![微信收款码](src/main/assets/wx.jpg) | ![支付宝收款码](src/main/assets/zfb.jpg) |
+| ![WeChat QR Code](src/main/assets/wx.jpg) | ![Alipay QR Code](src/main/assets/zfb.jpg) |
 
-**您的每一份支持都是我前进的动力！感谢您的认可与鼓励！**
+**Your every bit of support is my motivation to move forward! Thank you for your recognition and encouragement!**
 
 </div>
 
 ---
 
-## 📋 目录
+## 📋 Table of Contents
 
-- [插件简介](#-插件简介)
-- [核心功能](#-核心功能)
-  - [AI 代码分析](#ai-代码分析)
-  - [AI 快速分析](#ai-快速分析)
-  - [自定义 AI 配置](#自定义-ai-配置)
-- [辅助功能](#-辅助功能)
-  - [编码/解码工具](#编码解码工具)
-  - [哈希计算](#哈希计算)
-  - [时间戳转换](#时间戳转换)
-  - [快速插入时间](#快速插入时间)
-- [快速开始](#-快速开始)
-- [使用说明](#-使用说明)
-- [技术架构](#-技术架构)
-- [常见问题](#-常见问题)
-- [更新日志](#-更新日志)
-- [联系方式](#-联系方式)
-
----
-
-## 📖 插件简介
-
-**MTKang Plugin** 是一款专为开发者设计的 MT 管理器 V3 增强插件，以 **AI 智能编程助手** 为核心，深度融合 AI 模型，为移动端编程提供智能化的代码分析、优化建议和问题诊断服务。
-
-同时，插件还集成了多种**实用开发辅助工具**，包括编码/解码、哈希计算、时间戳转换、时间插入等常用功能，满足开发者在日常编程中的多样化需求。
-
-### 适用场景
-
-- 📱 **移动端编程学习** - 随时随地获取代码分析和建议
-- 🔍 **代码质量检查** - 快速发现潜在问题和优化空间
-- 🛠️ **开发效率提升** - 一键编码转换、哈希计算等快捷工具
-- 🌐 **多语言开发** - 支持10种语言界面，国际国内通用
+- [Plugin Introduction](#-plugin-introduction)
+- [Core Features](#-core-features)
+  - [AI Code Analysis](#ai-code-analysis)
+  - [AI Quick Analysis](#ai-quick-analysis)
+  - [Custom AI Configuration](#custom-ai-configuration)
+- [Helper Tools](#-helper-tools)
+  - [Encoding/Decoding Tools](#encodingdecoding-tools)
+  - [Hash Calculation](#hash-calculation)
+  - [Timestamp Conversion](#timestamp-conversion)
+  - [Quick Time Insertion](#quick-time-insertion)
+- [Quick Start](#-quick-start)
+- [Usage Guide](#-usage-guide)
+- [Technical Architecture](#-technical-architecture)
+- [FAQ](#-faq)
+- [Changelog](#-changelog)
+- [Contact](#-contact)
 
 ---
 
-## ✨ 核心功能
+## 📖 Plugin Introduction
 
-### 🤖 AI 代码分析
+**MTKang Plugin** is an enhanced plugin for MT Manager V3 designed specifically for developers, with **AI Intelligent Programming Assistant** as its core, deeply integrated with AI models to provide intelligent code analysis for mobile programming. 
 
-**插件的核心功能**，基于 AI 模型提供智能代码分析服务：
+The plugin also integrates multiple practical development helper tools, including encoding/decoding, hash calculation, timestamp conversion, time insertion, and other commonly used functions to meet the diverse needs of developers in daily programming.
 
-#### 功能特点
+### Applicable Scenarios
 
-- **全文分析** - 对编辑器中的全部代码进行深度分析
-- **选中分析** - 仅分析选中的代码片段，快速诊断
-- **思考过程展示** - 实时显示 AI 推理过程，了解分析思路
-- **流式输出** - 实时返回分析结果，无需长时间等待
-- **智能建议** - 提供代码优化建议、问题诊断和最佳实践
-- **后台运行** - 支持后台分析，完成后弹出结果
-- **自定义提示词** - 支持快速提示词和自定义 Skill
-
-#### 分析内容
-
-AI 分析会提供以下维度的专业评估：
-
-1. **代码功能概述** - 简要说明代码的主要功能
-2. **代码质量评估** - 指出代码的优点和存在的问题
-3. **潜在问题** - 识别可能的 bug、性能问题或安全隐患
-4. **优化建议** - 提供具体的改进建议和最佳实践
-5. **代码规范** - 检查代码是否符合常见的编码规范
-
-#### 使用方式
-
-在 MT 管理器文本编辑器中：
-
-- **全文分析** - 点击顶部「编辑」菜单中的 **AI 代码分析**
-- **快速分析** - 选中代码后，在浮动菜单中点击 **AI 快速分析**
+- 📱 **Mobile Programming Learning** - Get code analysis and suggestions anytime, anywhere
+- 🔍 **Code Quality Checking** - Quickly discover potential issues and optimization opportunities
+- 🛠️ **Development Efficiency Boost** - One-click encoding conversion, hash calculation, and other quick tools
+- 🌐 **Multi-language Development** - Supports 10 language interfaces, suitable for international use
 
 ---
 
-### ⚡ AI 快速分析
+## ✨ Core Features
 
-针对选中代码片段的快速诊断功能：
+### 🤖 AI Code Analysis
 
-- **精准定位** - 仅分析选中的代码，针对性更强
-- **即时反馈** - 快速返回分析结果，提高效率
-- **适用场景** - 检查特定函数、代码块或可疑代码段
-- **快速提示词** - 支持一键追加预设提示词
-- **Skill 选择** - 支持选择自定义 Skill 追加到提示词
+**The core feature of the plugin**, providing intelligent code analysis services based on AI models:
+
+#### Feature Highlights
+
+- **Full Text Analysis** - Deep analysis of all code in the editor
+- **Selected Analysis** - Analyze only the selected code snippet for quick diagnosis
+- **Thinking Process Display** - Show AI reasoning process in real-time to understand analysis approach
+- **Streaming Output** - Return analysis results in real-time without long waits
+- **Intelligent Suggestions** - Provide code optimization suggestions, problem diagnosis, and best practices
+- **Background Running** - Support background analysis with pop-up results upon completion
+- **Custom Prompts** - Support quick prompts and custom Skills
+
+#### Analysis Content
+
+AI analysis provides professional evaluation from the following dimensions:
+
+1. **Code Functionality Overview** - Brief description of the main functionality
+2. **Code Quality Assessment** - Point out code strengths and issues
+3. **Potential Problems** - Identify possible bugs, performance issues, or security risks
+4. **Optimization Suggestions** - Provide specific improvement suggestions and best practices
+5. **Code Standards** - Check if code complies with common coding standards
+
+#### Usage
+
+In MT Manager text editor:
+
+- **Full Text Analysis** - Click **AI Code Analysis** in the top "Edit" menu
+- **Quick Analysis** - Select code, then click **AI Quick Analysis** in the floating menu
 
 ---
 
-### 🔧 自定义 AI 配置
+### ⚡ AI Quick Analysis
 
-插件提供灵活的 AI 配置管理，用户可根据需求自定义：
+Quick diagnosis feature for selected code snippets:
 
-#### 配置项
+- **Precise Targeting** - Analyze only selected code for better accuracy
+- **Instant Feedback** - Quick analysis results to improve efficiency
+- **Use Cases** - Check specific functions, code blocks, or suspicious code segments
+- **Quick Prompts** - Support one-click append of preset prompts
+- **Skill Selection** - Support selecting custom Skills to append to prompts
 
-| 配置项 | 默认值 | 说明 |
+---
+
+### 🔧 Custom AI Configuration
+
+The plugin provides flexible AI configuration management where users can customize according to needs:
+
+#### Configuration Items
+
+| Configuration Item | Default Value | Description |
 |--------|--------|------|
-| **API 地址** | `https://api.kggzs.cn/v1` | AI API 的基础 URL |
-| **模型名称** | `MT-v1` | 使用的 AI 模型 |
-| **API 密钥** | `sk-MT-kggzs-API-key` | 访问密钥（默认提供） |
-| **全局分析提示词** | 内置专业提示词 | 用于全文分析 |
-| **简短分析提示词** | 内置简短提示词 | 用于快速分析 |
-| **快速提示词** | 预设提示词列表 | 分析时一键追加 |
-| **自定义 Skill** | 用户自定义 | 可追加到提示词末尾 |
+| **API Address** | `https://api.kggzs.cn/v1` | Base URL for AI API |
+| **Model Name** | `MT-v1` | AI model to use |
+| **API Key** | `sk-MT-kggzs-API-key` | Access key (provided by default) |
+| **Global Analysis Prompt** | Built-in professional prompt | Used for full text analysis |
+| **Quick Analysis Prompt** | Built-in quick prompt | Used for quick analysis |
+| **Quick Prompts** | Preset prompt list | One-click append during analysis |
+| **Custom Skills** | User-defined | Can be appended to end of prompts |
 
-#### 配置方式
+#### Configuration Method
 
-1. **统一 API 配置** - 在一个页面完成 API 地址、模型名称、密钥的配置
-2. **提示词独立配置** - 支持自定义多行提示词，满足不同分析需求
-3. **快速提示词管理** - 最多配置10条快速提示词
-4. **Skill 管理** - 添加、编辑、删除、应用自定义 Skill
-5. **一键重置** - 快速恢复所有默认配置
+1. **Unified API Configuration** - Complete API address, model name, and key configuration on one page
+2. **Independent Prompt Configuration** - Support custom multi-line prompts for different analysis needs
+3. **Quick Prompt Management** - Configure up to 10 quick prompts
+4. **Skill Management** - Add, edit, delete, and apply custom Skills
+5. **One-Click Reset** - Quickly restore all default settings
 
-> 💡 **提示**: 如果您有自己的 AI API 服务，可以在设置中修改为自定义地址和密钥。
-
----
-
-## 🛠️ 辅助功能
-
-除了核心的 AI 功能外，插件还提供多种实用的开发辅助工具：
-
-### 🔐 编码/解码工具
-
-提供全面的文本编码和解码功能，支持：
-
-- **Base64 编码/解码** - 标准 Base64 编解码
-- **Hex (十六进制) 编码/解码** - 十六进制格式转换
-- **Unicode 编码/解码** - Unicode 转义序列转换
-- **URL 编码/解码** - URL 参数编解码
-- **ROT13 编码/解码** - 凯撒密码变体
-- **二进制编码/解码** - 二进制格式转换
-
-### 🔢 哈希计算
-
-快速计算文本的哈希值，支持：
-
-- **MD5** - 128 位哈希值，常用于文件校验
-- **SHA-256** - 256 位安全哈希算法
-- **SHA-512** - 512 位安全哈希算法
-
-> 💡 **用途**: 快速生成文本指纹，用于校验文件完整性、密码加密等场景。
-
-### ⏰ 时间戳转换
-
-支持时间戳与日期时间的双向转换：
-
-- **时间戳转日期** - 将数字时间戳转换为可读的日期格式
-- **日期转时间戳** - 将日期字符串转换为时间戳
-- **多格式支持** - 自动识别 `yyyy-MM-dd`、`yyyy/MM/dd` 等多种格式
-
-### ⚡ 快速插入时间
-
-一键在光标位置插入当前日期时间，支持多种格式：
-
-#### 显示模式
-
-| 模式 | 说明 | 示例 |
-|------|------|------|
-| **不带时间** | 只显示日期 | 2026年5月20日 |
-| **带时间** | 显示日期+时分秒 | 2026年5月20日 19:29:55 |
-| **自定义格式** | 使用自定义格式 | 根据用户设置 |
-
-#### 预设格式
-
-- **公历格式**
-  - 标准中文格式：2026年5月20日
-  - ISO格式：2026-05-20
-  - 斜杠格式：2026/5/20
-  - 紧凑格式：20260520
-  - 带星期：2026年5月20日 星期三
-
-- **农历格式**
-  - 传统汉字：丙午年四月初四
-  - 农历简写：农历四月初四
-  - 干支纪日：丙午年 癸巳月 甲午日
-  - 农历+阿拉伯数字：农历2026年四月初四
-  - 公农历并列：2026-05-20（丙午年四月初四）
-
-#### 自定义格式
-
-支持使用格式标记自定义输出格式：
-
-| 标记 | 说明 | 示例 |
-|------|------|------|
-| yyyy | 4位年份 | 2026 |
-| yy | 2位年份 | 26 |
-| MM | 补0月份 | 05 |
-| M | 月份 | 5 |
-| N | 农历月份 | 四月 |
-| dd | 补0日期 | 20 |
-| e | 农历日期 | 初四 |
-| E | 星期 | 周三 |
-| a | 时段 | 上午/下午 |
-| aa | 精确时段 | 傍晚/凌晨 |
-| HH | 24时补0 | 19 |
-| mm | 补0分钟 | 08 |
-| ss | 补0秒数 | 55 |
-| l | 时辰 | 酉 |
-
-**示例**：`N月e E a H:mm l时` → `四月初四 周四 下午 19:29 酉时`
+> 💡 **Tip**: If you have your own AI API service, you can modify it to a custom address and key in settings.
 
 ---
 
-### 🌐 多语言支持
+## 🛠️ Helper Tools
 
-插件支持 10 种语言：
+In addition to core AI features, the plugin provides multiple practical development helper tools:
 
-| 语言 | 文件名 | 说明 |
+### 🔐 Encoding/Decoding Tools
+
+Provides comprehensive text encoding and decoding functions, supporting:
+
+- **Base64 Encoding/Decoding** - Standard Base64 encoding/decoding
+- **Hex (Hexadecimal) Encoding/Decoding** - Hexadecimal format conversion
+- **Unicode Encoding/Decoding** - Unicode escape sequence conversion
+- **URL Encoding/Decoding** - URL parameter encoding/decoding
+- **ROT13 Encoding/Decoding** - Caesar cipher variant
+- **Binary Encoding/Decoding** - Binary format conversion
+
+### 🔢 Hash Calculation
+
+Quickly calculate hash values of text, supporting:
+
+- **MD5** - 128-bit hash value, commonly used for file verification
+- **SHA-256** - 256-bit secure hash algorithm
+- **SHA-512** - 512-bit secure hash algorithm
+
+> 💡 **Usage**: Quickly generate text fingerprints for file integrity verification, password encryption, and more.
+
+### ⏰ Timestamp Conversion
+
+Support bi-directional conversion between timestamps and date-time:
+
+- **Timestamp to Date** - Convert numeric timestamp to readable date format
+- **Date to Timestamp** - Convert date string to timestamp
+- **Multiple Format Support** - Auto-recognize formats like `yyyy-MM-dd`, `yyyy/MM/dd`, etc.
+
+### ⚡ Quick Time Insertion
+
+One-click insert current date and time at cursor position, supporting multiple formats:
+
+#### Display Modes
+
+| Mode | Description | Example |
+|------|------|------|
+| **Without Time** | Display date only | May 20, 2026 |
+| **With Time** | Display date + hour:minute:second | May 20, 2026 19:29:55 |
+| **Custom Format** | Use custom format | According to user settings |
+
+#### Preset Formats
+
+- **Gregorian Calendar Format**
+  - Standard Chinese format: May 20, 2026
+  - ISO format: 2026-05-20
+  - Slash format: 2026/5/20
+  - Compact format: 20260520
+  - With week: May 20, 2026 Wednesday
+
+- **Lunar Calendar Format**
+  - Traditional Chinese: Year of Dragon, Fourth Month, Fourth Day
+  - Lunar short: Lunar Fourth Month, Fourth Day
+  - Heavenly Stems format: Year of Dragon, Fourth Month, Fourth Day
+  - Lunar + Arabic numerals: Lunar 2026 Fourth Month, Fourth Day
+  - Combined: 2026-05-20 (Year of Dragon, Fourth Month, Fourth Day)
+
+#### Custom Format
+
+Support using format tags to customize output format:
+
+| Tag | Description | Example |
+|------|------|------|
+| yyyy | 4-digit year | 2026 |
+| yy | 2-digit year | 26 |
+| MM | Zero-padded month | 05 |
+| M | Month | 5 |
+| N | Lunar month | Fourth Month |
+| dd | Zero-padded day | 20 |
+| e | Lunar day | Fourth |
+| E | Weekday | Wednesday |
+| a | Time period | Morning/Afternoon |
+| aa | Precise time period | Evening/Early Morning |
+| HH | 24-hour with padding | 19 |
+| mm | Zero-padded minute | 08 |
+| ss | Zero-padded second | 55 |
+| l | Hour name | Rooster |
+
+**Example**: `N Month e E a H:mm l Hour` → `Fourth Month Fourth Wednesday Afternoon 19:29 Rooster Hour`
+
+---
+
+### 🌐 Multi-language Support
+
+The plugin supports 10 languages:
+
+| Language | Filename | Description |
 |------|--------|------|
-| **中文（默认）** | `strings.mtl` | 默认语言 |
-| **简体中文** | `strings-zh-CN.mtl` | 简体中文 |
-| **繁体中文** | `strings-zh-TW.mtl` | 繁体中文 |
-| **日语** | `strings-ja.mtl` | 日语 |
-| **韩语** | `strings-ko.mtl` | 韩语 |
-| **阿拉伯语** | `strings-ar.mtl` | 阿拉伯语 |
-| **德语** | `strings-de.mtl` | 德语 |
-| **西班牙语** | `strings-es.mtl` | 西班牙语 |
-| **法语** | `strings-fr.mtl` | 法语 |
-| **俄语** | `strings-ru.mtl` | 俄语 |
+| **Chinese (Default)** | `strings.mtl` | Default language |
+| **Simplified Chinese** | `strings-zh-CN.mtl` | Simplified Chinese |
+| **Traditional Chinese** | `strings-zh-TW.mtl` | Traditional Chinese |
+| **Japanese** | `strings-ja.mtl` | Japanese |
+| **Korean** | `strings-ko.mtl` | Korean |
+| **Arabic** | `strings-ar.mtl` | Arabic |
+| **German** | `strings-de.mtl` | German |
+| **Spanish** | `strings-es.mtl` | Spanish |
+| **French** | `strings-fr.mtl` | French |
+| **Russian** | `strings-ru.mtl` | Russian |
 
-> 💡 **提示**: 语言会根据您的设备系统语言自动切换，无需手动配置。
+> 💡 **Tip**: Language automatically switches based on your device system language without manual configuration.
 
 ---
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境要求
+### Environment Requirements
 
-- **MT 管理器**: 2.26.3+ (需要 VIP 权限)
-- **Android 版本**: 5.0+ (API 21+)
-- **开发工具**: Android Studio Hedgehog (2023.1.1)+
-- **构建工具**: AGP 8.13.2+, Gradle 8.13
-- **Java 版本**: Java 17
+- **MT Manager**: 2.26.3+ (requires VIP permission)
+- **Android Version**: 5.0+ (API 21+)
+- **Development Tools**: Android Studio Hedgehog (2023.1.1)+
+- **Build Tools**: AGP 8.13.2+, Gradle 8.13
+- **Java Version**: Java 17
 
-### 安装插件
+### Install Plugin
 
-#### 方式一：从源码构建
+#### Method 1: Build from Source
 
-1. **克隆项目**
+1. **Clone Project**
    ```bash
    git clone https://github.com/kggzs/MT_Plugin.git
    cd mt-kang
    ```
 
-2. **构建插件**
+2. **Build Plugin**
    ```bash
-   # 使用 Gradle 构建
+   # Build using Gradle
    ./gradlew packageReleaseMtp
    ```
 
-3. **安装插件**
-   - 生成的 `.mtp` 文件位于：`build/outputs/mt-plugin/`
-   - 将 `.mtp` 文件复制到您的设备
-   - 在 MT 管理器中打开并安装
+3. **Install Plugin**
+   - Generated `.mtp` file located at: `build/outputs/mt-plugin/`
+   - Copy `.mtp` file to your device
+   - Open and install in MT Manager
 
-#### 方式二：直接安装
+#### Method 2: Direct Installation
 
-1. 下载最新版本的 `.mtp` 文件
-2. 在 MT 管理器中点击该文件
-3. 按照提示完成安装
+1. Download the latest `.mtp` file
+2. Click the file in MT Manager
+3. Follow prompts to complete installation
 
-### 首次使用
+### First Use
 
-安装完成后，您可以在以下场景中使用插件功能：
+After installation, you can use plugin features in the following scenarios:
 
-- **文本编辑器** - 打开文本编辑器，在工具栏或浮动菜单中找到插件功能
-- **插件管理** - 在 MT 管理器的插件管理中查看插件信息和设置
+- **Text Editor** - Open text editor and find plugin features in toolbar or floating menu
+- **Plugin Management** - View plugin information and settings in MT Manager's plugin management
 
 ---
 
-## 📖 使用说明
+## 📖 Usage Guide
 
-### 编码/解码工具
+### Encoding/Decoding Tools
 
-#### 打开方式
+#### How to Open
 
-在 MT 管理器文本编辑器中：
-- 选中文本后，在弹出的浮动菜单中点击 **编码/解码**
-- 或者在编辑器工具栏中找到编码/解码图标
+In MT Manager text editor:
+- Select text, then click **Encoding/Decoding** in the floating menu
+- Or find the Encoding/Decoding icon in the editor toolbar
 
-#### 功能说明
+#### Instructions
 
-1. **输入文本**
-   - 在对话框顶部的输入框中输入或粘贴要处理的文本
-   - 如果已选中文本，会自动填充到输入框
+1. **Input Text**
+   - Enter or paste text to process in the input box at the top
+   - If text is already selected, it will auto-fill
 
-2. **选择操作**
-   - 根据需要点击对应的按钮（如 Base64编码、Hex解码等）
-   - 处理结果会显示在输入框中
+2. **Select Operation**
+   - Click corresponding button (such as Base64 Encode, Hex Decode, etc.)
+   - Processing result displays in the input box
 
-3. **撤销与替换**
-   - **撤销** - 恢复到原始文本
-   - **替换** - 将处理后的文本替换到编辑器中
+3. **Undo and Replace**
+   - **Undo** - Restore to original text
+   - **Replace** - Replace processed text back to editor
 
-#### 哈希计算
+#### Hash Calculation
 
-1. 输入要计算哈希的文本
-2. 点击 **哈希计算** 按钮
-3. 选择哈希类型（MD5、SHA-256、SHA-512）
-4. 点击 **复制** 将结果复制到剪贴板
+1. Enter text to calculate hash
+2. Click **Hash Calculation** button
+3. Select hash type (MD5, SHA-256, SHA-512)
+4. Click **Copy** to copy result to clipboard
 
-#### 时间戳转换
+#### Timestamp Conversion
 
-支持以下格式的自动识别：
+Supports auto-recognition of the following formats:
 - `yyyy-MM-dd HH:mm:ss`
 - `yyyy/MM/dd HH:mm:ss`
 - `yyyy-MM-dd HH:mm`
@@ -352,299 +352,299 @@ AI 分析会提供以下维度的专业评估：
 - `yyyy-MM-dd`
 - `yyyy/MM/dd`
 
-**时间戳转日期**：
-1. 输入时间戳（秒或毫秒）
-2. 点击 **时间戳转换**
-3. 自动识别并转换为日期格式
+**Timestamp to Date**:
+1. Enter timestamp (seconds or milliseconds)
+2. Click **Timestamp Conversion**
+3. Auto-recognize and convert to date format
 
-**日期转时间戳**：
-1. 输入日期时间字符串
-2. 点击 **时间戳转换**
-3. 转换为秒级时间戳
-
----
-
-### AI 代码分析
-
-#### 打开方式
-
-在 MT 管理器文本编辑器中：
-
-- **全文分析** - 在顶部「编辑」菜单中点击 **AI 代码分析**
-- **快速分析** - 选中代码后，在浮动菜单中点击 **AI 快速分析**
-
-#### 使用流程
-
-1. **准备代码**
-   - 全文分析：无需选中，直接点击菜单
-   - 快速分析：先选中要分析的代码片段
-
-2. **设置提示词**
-   - 在弹出的对话框中输入自定义提示词
-   - 可点击快速提示词按钮追加预设内容
-   - 可选择自定义 Skill 追加到提示词末尾
-
-3. **等待分析**
-   - AI 会使用配置的 API 和提示词进行分析
-   - 实时显示思考过程和正式结果
-   - 可选择「后台运行」不阻塞当前界面
-
-4. **查看结果**
-   - 分析完成后弹出结果对话框
-   - 可以查看完整的分析结果
-   - 支持复制分析结果
-
-#### 自定义配置
-
-在插件设置界面的 **AI 代码分析配置** 分组中，您可以：
-
-1. **API 配置** - 点击「API 配置」，在弹出的对话框中统一配置：
-   - **API 地址** - AI API 的基础 URL
-   - **模型名称** - 使用的 AI 模型名称
-   - **API 密钥** - AI API 的访问密钥
-   - 点击「保存」按钮保存所有配置
-   - 点击「重置」按钮重置为默认值
-
-2. **AI 能力配置** - 点击「AI 能力配置」：
-   - **全局分析提示词** - 用于全文分析的系统提示词
-   - **简短分析提示词** - 用于快速分析的系统提示词
-   - **快速提示词管理** - 添加/编辑/删除快速提示词（最多10条）
-   - **Skill 管理** - 添加/编辑/删除/应用自定义 Skill
-
-3. **重置配置** - 点击「重置配置」，恢复所有设置为默认值
-
-> 💡 **提示**: 所有配置都会自动保存，下次使用时会直接使用。
+**Date to Timestamp**:
+1. Enter date-time string
+2. Click **Timestamp Conversion**
+3. Convert to seconds-level timestamp
 
 ---
 
-### 快速插入时间
+### AI Code Analysis
 
-#### 使用方式
+#### How to Open
 
-1. 在 MT 管理器文本编辑器中
-2. 将光标移动到要插入时间的位置
-3. 在浮动菜单中点击 **插入时间** 按钮
-4. 自动插入当前日期时间
+In MT Manager text editor:
 
-#### 时间格式设置
+- **Full Text Analysis** - Click **AI Code Analysis** in top "Edit" menu
+- **Quick Analysis** - Select code, then click **AI Quick Analysis** in floating menu
 
-在插件设置中点击「时间格式设置」：
+#### Usage Process
 
-**显示模式**：
-- **不带时间** - 只显示日期，不带时分秒
-- **带时间** - 显示日期+时分秒
-- **自定义格式** - 使用自定义格式
+1. **Prepare Code**
+   - Full Text Analysis: No need to select, click menu directly
+   - Quick Analysis: Select the code snippet to analyze first
 
-**预设格式选择**：
+2. **Set Prompts**
+   - Enter custom prompts in the pop-up dialog
+   - Click quick prompt buttons to append presets
+   - Optionally select custom Skills to append to end of prompts
 
-- **公历格式**
-  - 标准中文格式：2026年5月20日
-  - ISO格式：2026-05-20
-  - 斜杠格式：2026/5/20
-  - 紧凑格式：20260520
-  - 带星期：2026年5月20日 星期三
+3. **Wait for Analysis**
+   - AI analyzes using configured API and prompts
+   - Real-time display of thinking process and results
+   - Can choose "Background Run" to not block current interface
 
-- **农历格式**
-  - 传统汉字：丙午年四月初四
-  - 农历简写：农历四月初四
-  - 干支纪日：丙午年 癸巳月 甲午日
-  - 农历+阿拉伯数字：农历2026年四月初四
-  - 公农历并列：2026-05-20（丙午年四月初四）
+4. **View Results**
+   - Pop-up result dialog after analysis completion
+   - View complete analysis results
+   - Support copying analysis results
 
-**自定义格式编辑**：
+#### Custom Configuration
 
-点击「自定义格式」后，可输入自定义格式代码，支持以下标记：
+In the plugin settings **AI Code Analysis Configuration** group, you can:
 
-| 标记 | 说明 | 标记 | 说明 |
+1. **API Configuration** - Click "API Configuration" and configure in pop-up dialog:
+   - **API Address** - Base URL for AI API
+   - **Model Name** - AI model name to use
+   - **API Key** - AI API access key
+   - Click "Save" button to save all configuration
+   - Click "Reset" button to reset to defaults
+
+2. **AI Capability Configuration** - Click "AI Capability Configuration":
+   - **Global Analysis Prompt** - System prompt for full text analysis
+   - **Quick Analysis Prompt** - System prompt for quick analysis
+   - **Quick Prompt Management** - Add/edit/delete quick prompts (max 10)
+   - **Skill Management** - Add/edit/delete/apply custom Skills
+
+3. **Reset Configuration** - Click "Reset Configuration" to restore all settings to defaults
+
+> 💡 **Tip**: All configuration automatically saves; next use will apply these settings directly.
+
+---
+
+### Quick Time Insertion
+
+#### How to Use
+
+1. In MT Manager text editor
+2. Move cursor to position where you want to insert time
+3. Click **Insert Time** button in floating menu
+4. Auto-insert current date and time
+
+#### Time Format Settings
+
+Click "Time Format Settings" in plugin settings:
+
+**Display Mode**:
+- **Without Time** - Display date only, no hours:minutes:seconds
+- **With Time** - Display date + hours:minutes:seconds
+- **Custom Format** - Use custom format
+
+**Preset Format Selection**:
+
+- **Gregorian Calendar Format**
+  - Standard Chinese format: May 20, 2026
+  - ISO format: 2026-05-20
+  - Slash format: 2026/5/20
+  - Compact format: 20260520
+  - With week: May 20, 2026 Wednesday
+
+- **Lunar Calendar Format**
+  - Traditional Chinese: Year of Dragon, Fourth Month, Fourth Day
+  - Lunar short: Lunar Fourth Month, Fourth Day
+  - Heavenly Stems format: Year of Dragon, Fourth Month, Fourth Day
+  - Lunar + Arabic numerals: Lunar 2026 Fourth Month, Fourth Day
+  - Combined: 2026-05-20 (Year of Dragon, Fourth Month, Fourth Day)
+
+**Custom Format Editing**:
+
+After clicking "Custom Format", you can enter custom format codes supporting the following tags:
+
+| Tag | Description | Tag | Description |
 |------|------|------|------|
-| yyyy | 4位年份 | yy | 2位年份 |
-| MM | 补0月份 | M | 月份 |
-| N | 农历月份 | dd | 补0日期 |
-| d | 日期 | e | 农历日期 |
-| E | 星期 | a | 时段 |
-| aa | 精确时段 | HH | 24时补0 |
-| H | 24时 | mm | 补0分钟 |
-| ss | 补0秒数 | l | 时辰 |
+| yyyy | 4-digit year | yy | 2-digit year |
+| MM | Zero-padded month | M | Month |
+| N | Lunar month | dd | Zero-padded day |
+| d | Day | e | Lunar day |
+| E | Weekday | a | Time period |
+| aa | Precise time period | HH | 24-hour with padding |
+| H | 24-hour | mm | Zero-padded minute |
+| ss | Zero-padded second | l | Hour name |
 
 ---
 
-### 插件设置
+### Plugin Settings
 
-#### 打开方式
+#### How to Open
 
-- 在 MT 管理器的插件管理中找到 **MTKang Plugin**
-- 点击进入设置界面
+- Find **MTKang Plugin** in MT Manager's plugin management
+- Click to enter settings interface
 
-#### 设置内容
+#### Settings Content
 
-设置界面提供以下信息：
-- 插件名称和作者信息
-- 插件官方网站和开源地址
-- 支持作者（赞助二维码）
-- AI 代码分析配置
-- 时间格式设置
-- 各功能的使用说明
+Settings interface provides:
+- Plugin name and author information
+- Official plugin website and open source address
+- Support author (sponsorship QR codes)
+- AI Code Analysis configuration
+- Time format settings
+- Usage instructions for each feature
 
 ---
 
-## 🏗️ 技术架构
+## 🏗️ Technical Architecture
 
-### 核心技术栈
+### Core Technology Stack
 
-| 技术 | 版本/说明 |
+| Technology | Version/Description |
 |------|-----------|
-| **开发语言** | Java 17 |
-| **构建工具** | Gradle 8.13, AGP 8.13.2 |
+| **Development Language** | Java 17 |
+| **Build Tools** | Gradle 8.13, AGP 8.13.2 |
 | **Android SDK** | Min SDK 21, Target SDK 28, Compile SDK 36 |
-| **插件框架** | MT Plugin API V3 (1.0.0-beta6) |
-| **HTTP 通信** | HttpURLConnection |
-| **JSON 解析** | org.json.* |
-| **异步处理** | Thread + Handler/Looper |
-| **多语言支持** | 10种语言 |
+| **Plugin Framework** | MT Plugin API V3 (1.0.0-beta6) |
+| **HTTP Communication** | HttpURLConnection |
+| **JSON Parsing** | org.json.* |
+| **Async Processing** | Thread + Handler/Looper |
+| **Multi-language Support** | 10 languages |
 
-### 架构设计
+### Architecture Design
 
 ```
 MTKang Plugin
-├── 编码/解码模块 (EncodeDecodeMenu)
-│   ├── Base64 编解码
-│   ├── Hex 编解码
-│   ├── Unicode 编解码
-│   ├── URL 编解码
-│   ├── ROT13 编解码
-│   ├── 二进制编解码
-│   ├── 哈希计算 (MD5, SHA-256, SHA-512)
-│   └── 时间戳转换
-├── AI 分析模块
-│   ├── 全文分析 (AICodeAnalysisToolMenu)
-│   ├── 选中分析 (AICodeAnalysisFloatingMenu)
-│   └── AI 分析辅助 (AICodeAnalysisHelper)
-│       ├── 提示词输入对话框
-│       ├── 快速提示词按钮
-│       ├── Skill 多选
-│       ├── 分析流程控制
-│       └── Markdown 清理
-├── 工具类
-│   ├── AIHelper - AI 网络请求和配置管理
-│   ├── TimeFormatHelper - 时间格式配置
-│   └── LunarCalendar - 农历计算
-├── 快捷功能
-│   └── 快速插入时间 (QuickInsertFunction)
-└── 设置模块
-    └── 偏好设置 (MyPreference)
+├── Encoding/Decoding Module (EncodeDecodeMenu)
+│   ├── Base64 Encoding/Decoding
+│   ├── Hex Encoding/Decoding
+│   ├── Unicode Encoding/Decoding
+│   ├── URL Encoding/Decoding
+│   ├── ROT13 Encoding/Decoding
+│   ├── Binary Encoding/Decoding
+│   ├── Hash Calculation (MD5, SHA-256, SHA-512)
+│   └── Timestamp Conversion
+├── AI Analysis Module
+│   ├── Full Text Analysis (AICodeAnalysisToolMenu)
+│   ├── Selection Analysis (AICodeAnalysisFloatingMenu)
+│   └── AI Analysis Helper (AICodeAnalysisHelper)
+│       ├── Prompt Input Dialog
+│       ├── Quick Prompt Buttons
+│       ├── Skill Multi-select
+│       ├── Analysis Process Control
+│       └── Markdown Cleanup
+├── Utility Classes
+│   ├── AIHelper - AI network requests and configuration management
+│   ├── TimeFormatHelper - Time format configuration
+│   └── LunarCalendar - Lunar calendar calculation
+├── Quick Features
+│   └── Quick Time Insertion (QuickInsertFunction)
+└── Settings Module
+    └── Preferences (MyPreference)
 ```
 
-### API 端点
+### API Endpoints
 
-| 用途 | 默认值 |
+| Usage | Default Value |
 |------|--------|
-| **API 地址** | `https://api.kggzs.cn/v1` |
-| **模型名称** | `MT-v1` |
-| **API 密钥** | `sk-MT-kggzs-API-key` |
+| **API Address** | `https://api.kggzs.cn/v1` |
+| **Model Name** | `MT-v1` |
+| **API Key** | `sk-MT-kggzs-API-key` |
 
-> 💡 所有 API 配置均可在插件设置界面中自定义
+> 💡 All API configuration can be customized in the plugin settings interface
 
 ---
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 mt-kang/
 ├── src/main/
 │   ├── java/com/kggzs/cn/mt/
-│   │   ├── EncodeDecodeMenu.java              # 编码/解码浮动菜单
-│   │   ├── AICodeAnalysisToolMenu.java        # AI 代码分析工具菜单
-│   │   ├── AICodeAnalysisFloatingMenu.java    # AI 快速分析浮动菜单
-│   │   ├── AICodeAnalysisHelper.java          # AI 分析辅助类
-│   │   ├── QuickInsertFunction.java           # 快速插入时间功能
-│   │   ├── MyPreference.java                  # 插件偏好设置
+│   │   ├── EncodeDecodeMenu.java              # Encoding/Decoding floating menu
+│   │   ├── AICodeAnalysisToolMenu.java        # AI code analysis tool menu
+│   │   ├── AICodeAnalysisFloatingMenu.java    # AI quick analysis floating menu
+│   │   ├── AICodeAnalysisHelper.java          # AI analysis helper class
+│   │   ├── QuickInsertFunction.java           # Quick time insertion feature
+│   │   ├── MyPreference.java                  # Plugin preference settings
 │   │   └── util/
-│   │       ├── AIHelper.java                  # AI 工具类（核心网络逻辑）
-│   │       ├── TimeFormatHelper.java          # 时间格式配置工具
-│   │       └── LunarCalendar.java             # 农历计算工具
+│   │       ├── AIHelper.java                  # AI utility class (core network logic)
+│   │       ├── TimeFormatHelper.java          # Time format configuration tool
+│   │       └── LunarCalendar.java             # Lunar calendar calculation tool
 │   ├── assets/
-│   │   ├── strings.mtl                        # 默认语言资源
-│   │   ├── strings-zh-CN.mtl                  # 简体中文
-│   │   ├── strings-zh-TW.mtl                  # 繁体中文
-│   │   ├── strings-ja.mtl                     # 日语
-│   │   ├── strings-ko.mtl                     # 韩语
-│   │   ├── strings-ar.mtl                     # 阿拉伯语
-│   │   ├── strings-de.mtl                     # 德语
-│   │   ├── strings-es.mtl                     # 西班牙语
-│   │   ├── strings-fr.mtl                     # 法语
-│   │   ├── strings-ru.mtl                     # 俄语
-│   │   ├── wx.jpg                             # 微信收款码
-│   │   └── zfb.jpg                            # 支付宝收款码
+│   │   ├── strings.mtl                        # Default language resources
+│   │   ├── strings-zh-CN.mtl                  # Simplified Chinese
+│   │   ├── strings-zh-TW.mtl                  # Traditional Chinese
+│   │   ├── strings-ja.mtl                     # Japanese
+│   │   ├── strings-ko.mtl                     # Korean
+│   │   ├── strings-ar.mtl                     # Arabic
+│   │   ├── strings-de.mtl                     # German
+│   │   ├── strings-es.mtl                     # Spanish
+│   │   ├── strings-fr.mtl                     # French
+│   │   ├── strings-ru.mtl                     # Russian
+│   │   ├── wx.jpg                             # WeChat QR code
+│   │   └── zfb.jpg                            # Alipay QR code
 │   ├── resources/
-│   │   └── icon.png                           # 插件图标
+│   │   └── icon.png                           # Plugin icon
 │   └── AndroidManifest.xml
-├── docs/                                      # 文档目录
+├── docs/                                      # Documentation directory
 ├── gradle/
-│   └── libs.versions.toml                     # 版本目录
-├── build.gradle                               # 项目构建配置
-├── settings.gradle                            # Gradle 设置
-├── gradle.properties                          # Gradle 属性
-├── proguard-rules.pro                         # 混淆规则
-├── BUILD.md                                   # 编译说明
-└── README.md                                  # 项目说明文档
+│   └── libs.versions.toml                     # Version directory
+├── build.gradle                               # Project build configuration
+├── settings.gradle                            # Gradle settings
+├── gradle.properties                          # Gradle properties
+├── proguard-rules.pro                         # Obfuscation rules
+├── BUILD.md                                   # Build instructions
+└── README.md                                  # Project documentation
 ```
 
 ---
 
-## 🛠️ 开发指南
+## 🛠️ Development Guide
 
-### 开发环境搭建
+### Development Environment Setup
 
-1. **安装 Android Studio**
-   - 推荐版本：Hedgehog (2023.1.1) 或更新
+1. **Install Android Studio**
+   - Recommended version: Hedgehog (2023.1.1) or later
 
-2. **导入项目**
+2. **Import Project**
    ```bash
-   # 克隆项目
+   # Clone project
    git clone https://github.com/kggzs/MT_Plugin.git
    cd mt-kang
    
-   # 在 Android Studio 中打开项目
+   # Open in Android Studio
    ```
 
-3. **同步 Gradle**
-   - 打开项目后，等待 Gradle 自动同步
-   - 或手动点击 "Sync Project with Gradle Files"
+3. **Sync Gradle**
+   - After opening, wait for Gradle to auto-sync
+   - Or manually click "Sync Project with Gradle Files"
 
-### 构建插件
+### Build Plugin
 
-#### 调试构建
+#### Debug Build
 
 ```bash
-# 构建调试版本
+# Build debug version
 ./gradlew assembleDebug
 
-# 在 Android Studio 中直接运行
-# 点击右上角的运行按钮
+# Run directly in Android Studio
+# Click the run button in top-right corner
 ```
 
-#### 发布构建
+#### Release Build
 
 ```bash
-# 打包 Release MTP 文件
+# Package Release MTP file
 ./gradlew packageReleaseMtp
 
-# 输出位置
+# Output location
 # build/outputs/mt-plugin/
 ```
 
-### 插件配置
+### Plugin Configuration
 
-在 `build.gradle` 中配置插件信息：
+Configure plugin information in `build.gradle`:
 
 ```gradle
 mtPlugin {
-    pushTarget = "auto"                // 推送目标（自动检测）
-    pluginID = "com.kggzs.cn.mt"       // 插件 ID
-    versionCode = 4                    // 版本号
-    versionName = "v2.0.2"             // 版本名称
-    name = "{plugin_name}"             // 插件名称（支持本地化）
-    description = "{plugin_description}" # 插件描述
+    pushTarget = "auto"                // Push target (auto-detect)
+    pluginID = "com.kggzs.cn.mt"       // Plugin ID
+    versionCode = 4                    // Version code
+    versionName = "v2.0.2"             // Version name
+    name = "{plugin_name}"             // Plugin name (supports localization)
+    description = "{plugin_description}" # Plugin description
     mainPreference = "com.kggzs.cn.mt.MyPreference"
     interfaces = [
         "com.kggzs.cn.mt.EncodeDecodeMenu",
@@ -655,129 +655,129 @@ mtPlugin {
 }
 ```
 
-### 代码规范
+### Code Standards
 
-- 遵循 Java 代码规范
-- 使用有意义的变量和方法名
-- 添加必要的注释
-- 错误处理要完善
-- 资源使用后及时关闭
-
----
-
-## ❓ 常见问题
-
-### Q1: 安装插件后看不到功能？
-
-**A**: 请检查：
-1. MT 管理器版本是否为 V3 且拥有 VIP 权限
-2. 插件是否成功安装（在插件管理中查看）
-3. 是否在正确的场景使用（文本编辑器）
-
-### Q2: AI 代码分析无法使用？
-
-**A**: 可能原因：
-1. 网络连接问题 - 确保设备可以访问配置的 API 地址
-2. API 密钥无效 - 在设置中检查并更新 API 密钥
-3. 模型名称错误 - 确认使用的模型名称正确
-4. 选中的代码为空 - 确保有选中的文本（快速分析）
-
-### Q3: 如何修改 AI 提示词？
-
-**A**: 
-1. 打开插件设置界面
-2. 找到「AI 代码分析配置」分组
-3. 点击「AI 能力配置」
-4. 编辑全局分析提示词或简短分析提示词
-5. 点击「保存」按钮
-
-### Q4: 编码/解码结果不正确？
-
-**A**: 
-1. 检查输入文本格式是否正确
-2. 确认选择的编解码类型是否匹配
-3. 查看是否有错误提示
-
-### Q5: 如何贡献代码？
-
-**A**: 
-1. Fork 本仓库
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 提交 Pull Request
+- Follow Java code standards
+- Use meaningful variable and method names
+- Add necessary comments
+- Perfect error handling
+- Timely resource cleanup
 
 ---
 
-## 📝 更新日志
+## ❓ FAQ
 
-### v2.0.3 (当前版本)
+### Q1: Can't see features after installing plugin?
 
-- ✨ 时间插入新增三种显示模式（不带时间/带时间/自定义）
-- ✨ 时间插入新增自定义格式功能，支持18种格式标记
-- ✨ 时间插入支持时辰、精确时段等传统时间表示
-- 🔧 优化时间格式设置界面，使用按钮替代复选框
-- 🔧 优化自定义格式编辑对话框，显示详细格式说明
+**A**: Please check:
+1. Is MT Manager version V3 with VIP permission
+2. Is plugin successfully installed (check in plugin management)
+3. Are you using in correct scenario (text editor)
+
+### Q2: AI code analysis not working?
+
+**A**: Possible reasons:
+1. Network connection issue - Ensure device can access configured API address
+2. Invalid API key - Check and update API key in settings
+3. Wrong model name - Confirm model name is correct
+4. Empty selected code - Ensure text is selected (quick analysis)
+
+### Q3: How to modify AI prompts?
+
+**A**: 
+1. Open plugin settings interface
+2. Find "AI Code Analysis Configuration" group
+3. Click "AI Capability Configuration"
+4. Edit global analysis prompt or quick analysis prompt
+5. Click "Save" button
+
+### Q4: Encoding/decoding results incorrect?
+
+**A**: 
+1. Check if input text format is correct
+2. Confirm selected encoding/decoding type matches
+3. Check for error messages
+
+### Q5: How to contribute code?
+
+**A**: 
+1. Fork this repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Submit Pull Request
+
+---
+
+## 📝 Changelog
+
+### v2.0.3 (Current Version)
+
+- ✨ Time insertion added three display modes (without time/with time/custom)
+- ✨ Time insertion added custom format feature supporting 18 format tags
+- ✨ Time insertion supports hour names, precise time periods, and traditional time representation
+- 🔧 Optimized time format settings interface using buttons instead of checkboxes
+- 🔧 Optimized custom format edit dialog with detailed format instructions
 
 ### v2.0.2
 
-- 🌐 支持10种语言：中文、繁体中文、日语、韩语、阿拉伯语、德语、西班牙语、法语、俄语、英文
-- 🔧 AI 分析支持后台运行模式
-- 🔧 新增快速提示词功能（最多10条）
-- 🔧 新增自定义 Skill 功能
-- 🔧 时间插入支持多种格式（公历/农历/干支）
-- 🔧 设置界面支持赞助二维码
+- 🌐 Support 10 languages: Chinese, Traditional Chinese, Japanese, Korean, Arabic, German, Spanish, French, Russian, English
+- 🔧 AI analysis supports background running mode
+- 🔧 Added quick prompt feature (up to 10)
+- 🔧 Added custom Skill feature
+- 🔧 Time insertion supports multiple formats (Gregorian/Lunar/Heavenly Stems)
+- 🔧 Settings interface supports sponsorship QR codes
 
 ### v2.0.1
 
-- 🔧 AI 配置支持自定义 API 地址、模型、密钥和提示词
-- 🔧 移除云端密钥获取逻辑，改为本地默认配置
-- 🔧 设置界面新增 AI 配置分组，支持可视化配置管理
-- 🔧 新增配置重置功能
+- 🔧 AI configuration supports custom API address, model, key, and prompts
+- 🔧 Removed cloud key acquisition logic, changed to local default configuration
+- 🔧 Settings interface new AI configuration group with visual configuration management
+- 🔧 Added configuration reset feature
 
 ### v2.0
 
-- ✨ 新增编码/解码工具，支持 Base64、Hex、Unicode、URL、ROT13、二进制编解码
-- ✨ 新增哈希计算功能（MD5、SHA-256、SHA-512）
-- ✨ 新增时间戳转换功能
-- ✨ 新增 AI 代码分析功能，支持全文和选中分析
-- ✨ 新增快速插入时间功能
-- ✨ 完善插件设置界面
+- ✨ Added encoding/decoding tools supporting Base64, Hex, Unicode, URL, ROT13, binary encoding/decoding
+- ✨ Added hash calculation (MD5, SHA-256, SHA-512)
+- ✨ Added timestamp conversion
+- ✨ Added AI code analysis supporting full text and selection analysis
+- ✨ Added quick time insertion
+- ✨ Improved plugin settings interface
 
 ### v1.0
 
-- 🎉 初始版本发布
-- 📝 基础项目结构搭建
+- 🎉 Initial release
+- 📝 Basic project structure setup
 
 ---
 
-## 📄 许可证
+## 📄 License
 
-本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
+This project uses MIT License. See [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📞 联系方式
+## 📞 Contact
 
-- **作者**: 康哥
-- **网站**: [www.kggzs.cn](http://www.kggzs.cn)
+- **Author**: 康哥 (KangGe)
+- **Website**: [www.kggzs.cn](http://www.kggzs.cn)
 - **GitHub**: [https://github.com/kggzs/MT_Plugin](https://github.com/kggzs/MT_Plugin)
-- **问题反馈**: 在 GitHub 提交 Issue
+- **Issue Feedback**: Submit issues on GitHub
 
 ---
 
-## 🙏 致谢
+## 🙏 Acknowledgments
 
-感谢以下开源项目和服务：
+Thanks to the following open-source projects and services:
 
-- [MT 管理器](https://mt2.cn) - 强大的 Android 文件管理工具
-- [DeepSeek](https://deepseek.com) - AI 模型提供商
+- [MT Manager](https://mt2.cn) - Powerful Android file management tool
+- [DeepSeek](https://deepseek.com) - AI model provider
 
 ---
 
 <div align="center">
 
-**如果这个项目对您有帮助，请给个 ⭐ Star 支持一下！**
+**If this project helps you, please give it a ⭐ Star to support us!**
 
 Made with ❤️ by 康哥
 
