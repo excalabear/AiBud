@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 import bin.mt.plugin.api.PluginContext;
 import bin.mt.plugin.api.ui.PluginEditText;
@@ -24,12 +25,20 @@ import bin.mt.plugin.api.ui.dialog.PluginDialog;
  * 支持通过设置自定义配置 API 地址、模型、密钥和提示词
  */
 public class AIHelper {
-    // 默认配置
+    // 默认配置 - 英文提示词
     private static final String DEFAULT_API_URL = "https://api.kggzs.cn/v1";
     private static final String DEFAULT_AI_MODEL = "MT-v1";
     private static final String DEFAULT_API_KEY = "sk-MT-kggzs-API-key";
-    private static final String DEFAULT_PROMPT = "你是资深代码安全分析专家，精通MT管理器安卓逆向分析，擅长smali/Java代码审计。请严格按照用户后续指定的分析方向，结合MT管理器操作特性，对提供的安卓软件代码开展精准分析。输出要求：仅围绕用户指定目标，提供MT管理器可直接执行的检测方案、安全逻辑点分析、实操修改方法；内容精炼、逻辑清晰、无冗余、无表情符号，全程不使用MT管理器以外的任何工具。";
-    private static final String DEFAULT_SHORT_PROMPT = "请简要分析以下代码，指出主要问题和改进建议：";
+    
+    // 英文提示词
+    private static final String DEFAULT_PROMPT_EN = "You are a senior code security analysis expert, proficient in Android reverse engineering using MT Manager, skilled in Smali/Java code auditing. Please strictly follow the user's subsequent instructions and provide in-depth code analysis from multiple perspectives including functionality, security, and optimization.";
+    private static final String DEFAULT_SHORT_PROMPT_EN = "Please briefly analyze the following code, point out main issues and improvement suggestions:";
+    private static final String DEFAULT_QUICK_PROMPT_1_EN = "Analyze whether this code has obfuscation or decryption, point out obfuscation techniques and decryption methods";
+    
+    // 中文提示词
+    private static final String DEFAULT_PROMPT_CN = "你是资深代码安全分析专家，精通MT管理器安卓逆向分析，擅长smali/Java代码审计。请严格按照用户后续指定的需求进行代码分析，从功能、安全、优化等多个维度提供深度解读。";
+    private static final String DEFAULT_SHORT_PROMPT_CN = "请简要分析以下代码，指出主要问题和改进建议：";
+    private static final String DEFAULT_QUICK_PROMPT_1_CN = "分析此代码是否存在混淆或解密情况，指出混淆技术和解密方法";
 
     // SharedPreferences 键名
     private static final String PREF_API_URL = "ai_api_url";
@@ -40,8 +49,46 @@ public class AIHelper {
     private static final String PREF_SKILLS = "ai_skills";
     private static final String PREF_QUICK_PROMPTS = "ai_quick_prompts";
 
-    // 默认快速提示词
-    private static final String DEFAULT_QUICK_PROMPT_1 = "分析此代码是否存在混淆或解密情况，指出混淆技术和解密方法";
+    /**
+     * 检测系统语言是否为英文
+     */
+    @NonNull
+    private static boolean isEnglish() {
+        String language = Locale.getDefault().getLanguage();
+        return language.startsWith("en");
+    }
+
+    /**
+     * 获取默认系统提示词（根据系统语言自动切换）
+     */
+    @NonNull
+    private static String getDefaultPrompt() {
+        return isEnglish() ? DEFAULT_PROMPT_EN : DEFAULT_PROMPT_CN;
+    }
+
+    /**
+     * 获取默认快速分析提示词（根据系统语言自动切换）
+     */
+    @NonNull
+    private static String getDefaultShortPrompt() {
+        return isEnglish() ? DEFAULT_SHORT_PROMPT_EN : DEFAULT_SHORT_PROMPT_CN;
+    }
+
+    /**
+     * 获取默认快速提示词（根据系统语言自动切换）
+     */
+    @NonNull
+    private static String getDefaultQuickPrompt1() {
+        return isEnglish() ? DEFAULT_QUICK_PROMPT_1_EN : DEFAULT_QUICK_PROMPT_1_CN;
+    }
+
+    /**
+     * 获取用户分析前缀文本（根据系统语言自动切换）
+     */
+    @NonNull
+    private static String getAnalyzeCodePrefix() {
+        return isEnglish() ? "Please analyze the following code:\n\n" : "请分析以下代码：\n\n";
+    }
 
     /**
      * 获取 API 地址
@@ -76,7 +123,7 @@ public class AIHelper {
     @NonNull
     public static String getPrompt(@NonNull PluginContext context) {
         String prompt = context.getPreferences().getString(PREF_CUSTOM_PROMPT, "");
-        return prompt.isEmpty() ? DEFAULT_PROMPT : prompt;
+        return prompt.isEmpty() ? getDefaultPrompt() : prompt;
     }
 
     /**
@@ -85,7 +132,7 @@ public class AIHelper {
     @NonNull
     public static String getShortPrompt(@NonNull PluginContext context) {
         String prompt = context.getPreferences().getString(PREF_SHORT_PROMPT, "");
-        return prompt.isEmpty() ? DEFAULT_SHORT_PROMPT : prompt;
+        return prompt.isEmpty() ? getDefaultShortPrompt() : prompt;
     }
 
     /**
@@ -134,8 +181,8 @@ public class AIHelper {
             JSONArray defaultPrompts = new JSONArray();
             try {
                 JSONObject prompt1 = new JSONObject();
-                prompt1.put("name", "分析代码混淆");
-                prompt1.put("prompt", DEFAULT_QUICK_PROMPT_1);
+                prompt1.put("name", isEnglish() ? "Analyze Code Obfuscation" : "分析代码混淆");
+                prompt1.put("prompt", getDefaultQuickPrompt1());
                 defaultPrompts.put(prompt1);
             } catch (Exception e) {
                 android.util.Log.e("AIHelper", "创建默认快速提示词失败", e);
@@ -305,7 +352,7 @@ public class AIHelper {
 
         JSONObject userMessage = new JSONObject();
         userMessage.put("role", "user");
-        userMessage.put("content", "请分析以下代码：\n\n" + code);
+        userMessage.put("content", getAnalyzeCodePrefix() + code);
         messages.put(userMessage);
 
         requestBody.put("messages", messages);
@@ -781,7 +828,7 @@ public class AIHelper {
 
         JSONObject userMessage = new JSONObject();
         userMessage.put("role", "user");
-        userMessage.put("content", "请分析以下代码：\n\n" + code);
+        userMessage.put("content", getAnalyzeCodePrefix() + code);
         messages.put(userMessage);
 
         requestBody.put("messages", messages);
