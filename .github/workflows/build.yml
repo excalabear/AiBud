@@ -13,6 +13,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     
     - name: Set up Java
       uses: actions/setup-java@v4
@@ -23,6 +25,28 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
+    - name: Increment Version
+      run: |
+        # Read current versionCode and versionName
+        CURRENT_CODE=$(grep 'versionCode = ' build.gradle | grep -oP '\d+')
+        CURRENT_NAME=$(grep 'versionName = ' build.gradle | grep -oP 'v[\d.]+')
+        
+        # Increment versionCode
+        NEW_CODE=$((CURRENT_CODE + 1))
+        
+        # Increment patch version (v2.0.2 -> v2.0.3)
+        MAJOR=$(echo $CURRENT_NAME | cut -d. -f1)
+        MINOR=$(echo $CURRENT_NAME | cut -d. -f2)
+        PATCH=$(echo $CURRENT_NAME | cut -d. -f3)
+        NEW_PATCH=$((PATCH + 1))
+        NEW_NAME="${MAJOR}.${MINOR}.${NEW_PATCH}"
+        
+        # Update build.gradle
+        sed -i "s/versionCode = [0-9]*/versionCode = $NEW_CODE/" build.gradle
+        sed -i "s/versionName = \"v[0-9.]*\"/versionName = \"v$NEW_NAME\"/" build.gradle
+        
+        echo "Version updated: v$CURRENT_NAME -> v$NEW_NAME (Code: $CURRENT_CODE -> $NEW_CODE)"
+    
     - name: Build with Gradle
       run: ./gradlew packageReleaseMtp --no-daemon
     
@@ -31,3 +55,14 @@ jobs:
       with:
         name: mtp-plugin
         path: build/outputs/mt-plugin/*.mtp
+    
+    - name: Commit Version Update
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git add build.gradle
+        git commit -m "chore: auto-increment version on build" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
