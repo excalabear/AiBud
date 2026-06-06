@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -24,17 +25,20 @@ import bin.mt.plugin.api.ui.dialog.PluginDialog;
  * Simplified version for code analysis
  */
 public class AIHelper {
+    // Keep old key name for backward compatibility
+    private static final String PREF_API_KEY_OLD = "ai_api_key";
     private static final String PREF_API_KEY = "gemini_api_key";
     private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
     private static final String GEMINI_MODEL = "gemini-2.0-flash";
 
-    @NonNull
+    @Nullable
     public static String getApiKey(@NonNull PluginContext context) {
         String key = context.getPreferences().getString(PREF_API_KEY, "");
-        if (key.isEmpty()) {
-            throw new RuntimeException("Gemini API key not configured. Please set it in plugin settings.");
+        if (key == null || key.isEmpty()) {
+            // fall back to old preference name
+            key = context.getPreferences().getString(PREF_API_KEY_OLD, "");
         }
-        return key;
+        return (key == null || key.isEmpty()) ? null : key;
     }
 
     public static void setApiKey(@NonNull PluginContext context, @NonNull String key) {
@@ -56,6 +60,10 @@ public class AIHelper {
             @Nullable PluginDialog dialog) throws Exception {
 
         String apiKey = getApiKey(context);
+        if (apiKey == null) {
+            throw new Exception("Gemini API key not configured. Please set it in plugin settings.");
+        }
+
         String prompt = "You are a code security expert. Analyze this code and point out security issues, bugs, and improvements.";
 
         JSONObject requestBody = new JSONObject();
@@ -79,13 +87,20 @@ public class AIHelper {
         URL url = new URL(GEMINI_API_URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        // include both Authorization and x-goog-api-key for compatibility
+        connection.setRequestProperty("Authorization", "Bearer " + apiKey);
         connection.setRequestProperty("x-goog-api-key", apiKey);
         connection.setConnectTimeout(30000);
         connection.setReadTimeout(60000);
         connection.setDoOutput(true);
 
-        connection.getOutputStream().write(requestBody.toString().getBytes(StandardCharsets.UTF_8));
+        // write request body and close output stream
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] out = requestBody.toString().getBytes(StandardCharsets.UTF_8);
+            os.write(out);
+            os.flush();
+        }
 
         int responseCode = connection.getResponseCode();
         if (responseCode != 200) {
@@ -108,8 +123,8 @@ public class AIHelper {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("data: ")) {
-                    String data = line.substring(6);
-                    if ("[ DONE]".equals(data)) {
+                    String data = line.substring(6).trim();
+                    if ("[DONE]".equals(data)) {
                         break;
                     }
 
@@ -119,12 +134,12 @@ public class AIHelper {
                         if (choices != null && choices.length() > 0) {
                             JSONObject choice = choices.getJSONObject(0);
                             JSONObject delta = choice.optJSONObject("delta");
-                            
+
                             if (delta != null) {
                                 String content = delta.optString("content", "");
                                 if (!content.isEmpty()) {
                                     result.append(content);
-                                    
+
                                     if (resultEdit != null) {
                                         final String currentResult = result.toString();
                                         runOnMainThread(() -> {
@@ -133,13 +148,44 @@ public class AIHelper {
                                         });
                                     }
                                 }
+                            } else {
+                                // fallback: some responses might include 'message' or 'text'
+                                String text = choice.optString("text", "");
+                                if (text != null && !text.isEmpty()) {
+                                    result.append(text);
+                                }
                             }
                         }
                     } catch (Exception e) {
                         android.util.Log.w("AIHelper", "Parse error: " + e.getMessage());
                     }
+                } else if (!line.trim().isEmpty()) {
+                    // handle non-stream JSON responses
+                    try {
+                        JSONObject full = new JSONObject(line.trim());
+                        JSONArray choices = full.optJSONArray("choices");
+                        if (choices != null && choices.length() > 0) {
+                            JSONObject choice = choices.getJSONObject(0);
+                            JSONObject message = choice.optJSONObject("message");
+                            if (message != null) {
+                                String content = message.optString("content", "");
+                                if (!content.isEmpty()) {
+                                    result.append(content);
+                                }
+                            } else {
+                                String text = choice.optString("text", "");
+                                if (!text.isEmpty()) {
+                                    result.append(text);
+                                }
+                            }
+                        }
+                    } catch (Exception ignored) {
+                        // not JSON — ignore
+                    }
                 }
             }
+        } finally {
+            connection.disconnect();
         }
 
         if (result.length() == 0) {
