@@ -13,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
@@ -230,10 +229,8 @@ public class AIHelper {
         String apiKey = getApiKey(context);
         String prompt = (customPrompt != null && !customPrompt.isEmpty()) ? customPrompt : getPrompt(context);
 
+        // Build URL without API key (will go in header)
         String completionsUrl = apiUrl.endsWith("openai/") ? apiUrl + "chat/completions" : apiUrl;
-        if (!completionsUrl.contains("?")) {
-            completionsUrl = completionsUrl + "?key=" + URLEncoder.encode(apiKey, "UTF-8");
-        }
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", aiModel);
@@ -257,6 +254,7 @@ public class AIHelper {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("x-goog-api-key", apiKey);
         connection.setConnectTimeout(30000);
         connection.setReadTimeout(60000);
         connection.setDoOutput(true);
@@ -354,10 +352,8 @@ public class AIHelper {
         String apiKey = getApiKey(context);
         String prompt = (customPrompt != null && !customPrompt.isEmpty()) ? customPrompt : getPrompt(context);
 
+        // Build URL without API key (will go in header)
         String completionsUrl = apiUrl.endsWith("openai/") ? apiUrl + "chat/completions" : apiUrl;
-        if (!completionsUrl.contains("?")) {
-            completionsUrl = completionsUrl + "?key=" + URLEncoder.encode(apiKey, "UTF-8");
-        }
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", aiModel);
@@ -381,6 +377,7 @@ public class AIHelper {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("x-goog-api-key", apiKey);
         connection.setConnectTimeout(30000);
         connection.setReadTimeout(120000);
         connection.setDoOutput(true);
