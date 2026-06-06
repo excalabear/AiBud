@@ -1,5 +1,8 @@
 name: Build MTKang Plugin
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [ master, main ]
@@ -10,52 +13,53 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    
+        persist-credentials: true
+
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
-    
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    
+
     - name: Increment Version
       run: |
         # Read current versionCode and versionName
         CURRENT_CODE=$(grep 'versionCode = ' build.gradle | grep -oP '\d+')
         CURRENT_NAME=$(grep 'versionName = ' build.gradle | grep -oP 'v[\d.]+')
-        
+
         # Increment versionCode
         NEW_CODE=$((CURRENT_CODE + 1))
-        
+
         # Increment patch version (v2.0.2 -> v2.0.3)
         MAJOR=$(echo $CURRENT_NAME | cut -d. -f1)
         MINOR=$(echo $CURRENT_NAME | cut -d. -f2)
         PATCH=$(echo $CURRENT_NAME | cut -d. -f3)
         NEW_PATCH=$((PATCH + 1))
         NEW_NAME="${MAJOR}.${MINOR}.${NEW_PATCH}"
-        
+
         # Update build.gradle
         sed -i "s/versionCode = [0-9]*/versionCode = $NEW_CODE/" build.gradle
         sed -i "s/versionName = \"v[0-9.]*\"/versionName = \"v$NEW_NAME\"/" build.gradle
-        
+
         echo "Version updated: v$CURRENT_NAME -> v$NEW_NAME (Code: $CURRENT_CODE -> $NEW_CODE)"
-    
+
     - name: Build with Gradle
       run: ./gradlew packageReleaseMtp --no-daemon
-    
+
     - name: Upload MTP plugin
       uses: actions/upload-artifact@v4
       with:
         name: mtp-plugin
         path: build/outputs/mt-plugin/*.mtp
-    
+
     - name: Commit Version Update
       if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
