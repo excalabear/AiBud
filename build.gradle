@@ -37,10 +37,6 @@ android {
         sourceCompatibility javaVersion
         targetCompatibility javaVersion
     }
-
-    if (project.plugins.hasPlugin(libs.plugins.kotlin.android.get().pluginId)) {
-        kotlin.jvmToolchain(javaVersion.majorVersion.toInteger())
-    }
 }
 
 dependencies {
